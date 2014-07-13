@@ -56,8 +56,9 @@ module.exports = ->
 # # can be Before/After with Features/Feature/Scenario/Step
 # module.exports = ->
 #   @registerHandler 'AfterFeature', (event, callback) ->
-#     # not sure how to access the World object with this approach
-#     # @doAfterFeature()
+#     # not sure if you're meant to be able to access the World object here
+#     # perhaps this is more the place for more "global" wrap-up like closing
+#     # browsers etc.
 #     console.log 'After feature cleanup code'
 #     callback()
 #     return

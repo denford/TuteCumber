@@ -22,9 +22,5 @@ module.exports.World = World = (callback) ->
     console.log 'After scenario cleanup code'
     return
 
-  @doAfterFeature = ->
-    console.log 'After feature cleanup code'
-    return
-
   callback()
   return
