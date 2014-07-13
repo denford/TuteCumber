@@ -20,7 +20,7 @@ module.exports = ->
     if result is Number arg1
       callback()
     else
-      callback.fail new Error("Expected sum to be " + arg1)
+      callback.fail new Error('Expected sum to be ' + arg1)
     return
 
   return

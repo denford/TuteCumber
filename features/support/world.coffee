@@ -12,5 +12,17 @@ module.exports.World = (callback) ->
   @add = ->
     @arg1 + @arg2
 
+  @doBeforeScenario = ->
+    console.log 'Before scenario prep code'
+    return
+
+  @doAfterScenario = ->
+    console.log 'After scenario cleanup code'
+    return
+
+  # @doAfterFeature = ->
+  #   console.log 'After feature cleanup code'
+  #   return
+
   callback()
   return
