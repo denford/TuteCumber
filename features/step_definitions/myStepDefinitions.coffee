@@ -3,14 +3,15 @@ module.exports = ->
   @Given /^the calculator is clear$/, (callback) ->
 
     # Write code here that turns the phrase above into concrete actions
-    @clearCalculator callback
-    # callback.pending()
+    @clearCalculator()
+    callback()
     return
 
   @When /^I add (\d+) and (\d+)$/, (arg1, arg2, callback) ->
 
     # Write code here that turns the phrase above into concrete actions
-    @setArguments arg1, arg2, callback
+    @setArguments arg1, arg2
+    callback()
     return
 
   @Then /^the result should be (\d+)$/, (arg1, callback) ->

@@ -1,17 +1,17 @@
-# S T Y L E   1
-# before and after
-module.exports = ->
-  @Before (callback) ->
-    @doBeforeScenario()
-    callback()
-    return
+# # S T Y L E   1
+# # before and after
+# module.exports = ->
+#   @Before (callback) ->
+#     @doBeforeScenario()
+#     callback()
+#     return
 
-  @After (callback) ->
-    @doAfterScenario()
-    callback()
-    return
+#   @After (callback) ->
+#     @doAfterScenario()
+#     callback()
+#     return
 
-  return
+#   return
 
 
 

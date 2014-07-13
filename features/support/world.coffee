@@ -1,14 +1,18 @@
 # a simple pretend little calculator just to test out cucumber
 # takes two numbers, adds them later
 module.exports.World = World = (callback) ->
-  @clearCalculator = (callback) ->
+  @clearCalculator = ->
+    return
+
+  # if there was some asynchronous processing in our world...
+  @clearCalculatorAsync = (callback) ->
+    # do some async stuff
     callback()
     return
 
-  @setArguments = (arg1, arg2, callback) ->
+  @setArguments = (arg1, arg2) ->
     @arg1 = Number arg1
     @arg2 = Number arg2
-    callback()
     return
 
   @add = ->
