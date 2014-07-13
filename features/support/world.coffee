@@ -1,4 +1,6 @@
-module.exports.World = (callback) ->
+# a simple pretend little calculator just to test out cucumber
+# takes two numbers, adds them later
+module.exports.World = World = (callback) ->
   @clearCalculator = (callback) ->
     callback()
     return
@@ -20,9 +22,9 @@ module.exports.World = (callback) ->
     console.log 'After scenario cleanup code'
     return
 
-  # @doAfterFeature = ->
-  #   console.log 'After feature cleanup code'
-  #   return
+  @doAfterFeature = ->
+    console.log 'After feature cleanup code'
+    return
 
   callback()
   return
