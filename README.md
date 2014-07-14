@@ -9,9 +9,16 @@ A Cucumber.js Tutorial and example project. Uses Cucumber.js (obviously) in a No
 ```
 
 ## Usage
-From root TuteCumber directory
+From the TuteCumber directory
 ``` bash
   $ npm test
+```
+You should see something like this to know that Cucumber.js has been properly installed by NPM and that the tests can run
+``` bash
+  .....................................
+  
+  9 scenarios (9 passed)
+  37 steps (37 passed)
 ```
 
 ## Aims
