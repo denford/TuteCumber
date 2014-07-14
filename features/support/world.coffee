@@ -5,14 +5,14 @@ module.exports.World = World = (callback) ->
   Calc = require('../../models/calc')
   @calc = new Calc
 
+  # # if there was some asynchronous processing in our world...
+  # @clearCalculatorAsync = (callback) ->
+  #   # do some async stuff
+  #   callback()
+  #   return
+
   @clearCalculator = ->
     @calc.clearCalculator()
-    return
-
-  # if there was some asynchronous processing in our world...
-  @clearCalculatorAsync = (callback) ->
-    # do some async stuff
-    callback()
     return
 
   @setArguments = (arg1, arg2) ->
@@ -21,6 +21,14 @@ module.exports.World = World = (callback) ->
 
   @add = ->
     @calc.add()
+    return
+
+  @substract = ->
+    @calc.substract()
+    return
+
+  @result = ->
+    @calc.result()
 
   @doBeforeScenario = ->
     console.log 'Before scenario prep code'

@@ -14,7 +14,3 @@ Feature: Add Numbers
     Given the calculator is clear
     When I add 56 and 67
     Then the result should be 123
-
-
-
-
