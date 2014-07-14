@@ -2,6 +2,10 @@
   "name": "TuteCumber",
   "version": "0.0.1",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/denford/TuteCumber.git"
+  }
   "scripts": {
     "test": "./node_modules/.bin/cucumber.js"
   },
