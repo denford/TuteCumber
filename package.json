@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "http://github.com/denford/TuteCumber.git"
-  }
+  },
   "scripts": {
     "test": "./node_modules/.bin/cucumber.js"
   },
