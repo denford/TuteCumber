@@ -3,12 +3,14 @@ A Cucumber.js Tutorial and example project. Uses Cucumber.js (obviously) in a No
 
 ## Installation
 ``` bash
-  $ [sudo] npm install forever -g
+  $ git clone https://github.com/denford/TuteCumber.git
+  $ cd TuteCumber
+  $ npm install
 ```
 
 ## Usage
+From root TuteCumber directory
 ``` bash
-  $ npm install
   $ npm test
 ```
 
