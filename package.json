@@ -2,6 +2,9 @@
   "name": "CucumberTest",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "test": "./node_modules/.bin/cucumber.js"
+  },
   "dependencies": {},
   "devDependencies": {
     "cucumber": "^0.4.1"
