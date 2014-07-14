@@ -3,6 +3,6 @@ Feature: Subtract Numbers
   I want to subtract 2 numbers
 
   Scenario: Subtract 2 small numbers
-    Given the calculator is clear
+    Given the calculator is cleared
     When I subtract 5 from 6
     Then the result should be 1

@@ -1,6 +1,4 @@
 class Calc
-  _arg1: 0
-  _arg2: 0
   _currentSum: 0
 
   constructor: ->
@@ -11,17 +9,12 @@ class Calc
     @_currentSum = 0
     return
 
-  setArguments: (arg1, arg2) ->
-    @_arg1 = Number arg1
-    @_arg2 = Number arg2
+  add: (arg) ->
+    @_currentSum = @_currentSum + arg
     return
 
-  add: ->
-    @_currentSum = @_arg1 + @_arg2
-    return
-
-  substract: ->
-    @_currentSum = @_arg1 - @_arg2
+  substract: (arg) ->
+    @_currentSum = @_currentSum - arg
     return
 
   result: ->

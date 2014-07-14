@@ -15,16 +15,12 @@ module.exports.World = World = (callback) ->
     @calc.clearCalculator()
     return
 
-  @setArguments = (arg1, arg2) ->
-    @calc.setArguments arg1, arg2
+  @add = (arg) ->
+    @calc.add(Number arg)
     return
 
-  @add = ->
-    @calc.add()
-    return
-
-  @substract = ->
-    @calc.substract()
+  @substract = (arg) ->
+    @calc.substract(Number arg)
     return
 
   @result = ->
