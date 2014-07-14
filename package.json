@@ -1,7 +1,7 @@
 {
-  "name": "CucumberTest",
+  "name": "TuteCumber",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "scripts": {
     "test": "./node_modules/.bin/cucumber.js"
   },
