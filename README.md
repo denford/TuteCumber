@@ -27,7 +27,7 @@ To get a better understanding of:
  2. Behaviour Driven Development (BDD)
  3. How to achieve #2 with #1
 
-### BDD and Cucumber.js Overview
+## BDD and Cucumber.js Overview
 By no means is this meant to be an exhaustive tutorial on BDD. But basically, the hint is in the name...
 
 BDD is about testing the *behaviour* of the system. Well, first agreeing and specifying the behaviour, and then testing the system's conformance to this desired behaviour. The idea is that these specifications are things that can be generated with, and understood by, the key stakeholders in the system. Not just developers, but other humans as well. It was borne out of Test Driven Development (TDD), and conceptually it's specifying the system with, and testing the system against, a higher level specification.
@@ -146,7 +146,32 @@ However the downstream refactoring we mentioned above flows through the World. N
 The calculator model - [`models/calc.coffee`](https://github.com/denford/TuteCumber/blob/Stage2/models/calc.coffee) - has now been refactored as well, as we'd expect. Ultimately we've made the calculator a little more realistic. Instead of the `@add` and `@subtract` methods directly returning the value, they more appropriately just perform the addition or subtraction operation, and store the result in the new `_currentSum` property. Then the current result at any point in time can be requested with the `@result` method.
 #### Stage 2 Comments
 What is interesting here is that by simply re-using one of our steps in the step definitions (the `@Then` step) between the addition and the subtraction features, this drives change all the way down the chain: from the step definitions to the World to our Calculator class. On the whole it results in us having a more realistic (real world) calculator.
+### Stage 3 - Multiple Operations
+So the last stage sees us adding a feature specification for multiple chained operations - that is the ability to add more than two consecutive numbers, subtract numbers, all in the same single operation. As before, let's first update our code to this stage.
+``` bash
+  $ git checkout Stage3
+  $ npm test
+```
+You should see something like:
+``` bash
+  .....................................
+  
+  9 scenarios (9 passed)
+  37 steps (37 passed)
+```
+Even more tests defined and passing now.
+#### Features
+Now we're really pumping out the features. The new feature is defined in [`features/multiple_operations.feature`](https://github.com/denford/TuteCumber/blob/Stage3/features/multiple_operations.feature). We can see that we're adding many new scenarios where we chain more operations.
 
+Worthy of mention here is the `And` steps. We haven't used these before, but they do what you'd expect, they allow us to add or chain more `When` events. They can also be used in `Given` and `Then` steps.
+#### Step Definitions
+TBC
+#### World
+TBC
+#### Calculator Model
+TBC
+#### Stage 2 Comments
+TBC
 
 
 ### Overall Comments
