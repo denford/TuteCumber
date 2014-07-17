@@ -1,6 +1,38 @@
 # TuteCumber
 A Cucumber.js Tutorial and example project. Uses [Cucumber.js](https://github.com/cucumber/cucumber-js) (obviously) in a [Node.js](http://nodejs.org/) environment. Explores [BDD](http://en.wikipedia.org/wiki/Behavior-driven_development) in general.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Aims](#aims)
+- [BDD and Cucumber.js Overview](#bdd-and-cucumberjs-overview)
+- [Tutorial](#tutorial)
+  - [Our System (Calculator)](#our-system-calculator)
+  - [First feature: Addition (aka Stage 1)](#first-feature-addition-aka-stage-1)
+    - [Features](#features)
+    - [Step Definitions](#step-definitions)
+    - [World](#world)
+    - [Calculator Model](#calculator-model)
+    - [Stage 1 Comments](#stage-1-comments)
+  - [Second feature: Subtraction (aka Stage 2)](#second-feature-subtraction-aka-stage-2)
+    - [Features](#features-1)
+    - [Step Definitions](#step-definitions-1)
+    - [World](#world-1)
+    - [Calculator Model](#calculator-model-1)
+    - [Stage 2 Comments](#stage-2-comments)
+  - [Third feature: Chaining multiple operations (aka Stage 3)](#third-feature-chaining-multiple-operations-aka-stage-3)
+    - [Features](#features-2)
+    - [Step Definitions](#step-definitions-2)
+    - [World](#world-2)
+    - [Calculator Model](#calculator-model-2)
+    - [Stage 3 Comments](#stage-3-comments)
+- [Final Comments](#final-comments)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Installation
 ``` bash
   $ git clone https://github.com/denford/TuteCumber.git
