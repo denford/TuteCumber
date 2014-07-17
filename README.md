@@ -224,5 +224,5 @@ We again refactor the `add` and `subtract` methods to take the number being adde
 #### Stage 3 Comments
 What is interesting in this final stage is that the final set of features, once again, cause us to re-think how the addition and subtraction work. We are left with a "working" calculator that is more sophisticated (real world), has less code, and supports more features. As we can see in the Stage3 [features file](https://github.com/denford/TuteCumber/blob/Stage3/features/multiple_operations.feature), we can start to specify all sorts of scenarios, including clearing the calculator mid-stream.
 
-### Overall Comments
+## Final Comments
 One thing that makes it interesting (to me), and what I've tried to demonstrate here, is that we can see how the system being tested becomes more sophisticated as more features are added. I don't just mean that it becomes more complex, that more code is added, I mean that adding more feature specs forces (or at least strongly encourages) us to write a system that evolves  quickly approximate what we think the final system should look like.
