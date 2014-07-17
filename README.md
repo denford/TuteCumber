@@ -175,15 +175,54 @@ Even more tests defined and passing now.
 Now we're really pumping out the features. The new feature is defined in [`features/multiple_operations.feature`](https://github.com/denford/TuteCumber/blob/Stage3/features/multiple_operations.feature). We can see that we're adding many new scenarios where we chain more operations.
 
 Worthy of mention here is the `And` steps. We haven't used these before, but they do what you'd expect, they allow us to add or chain more `When` events. They can also be used in `Given` and `Then` steps.
-#### Step Definitions
-TBC
-#### World
-TBC
-#### Calculator Model
-TBC
-#### Stage 3 Comments
-TBC
 
+Apart from that, by now the feature definitions should be fairly self-explanatory.
+#### Step Definitions
+Our step definitions ([`features/step_definitions/myStepDefinitions.coffee`](https://github.com/denford/TuteCumber/blob/Stage3/features/step_definitions/myStepDefinitions.coffee)) now undergo some more refinements. Because previously we were thinking about addition and subtraction as automic operations, it made sense to break them into a `@setArguments` and `@add` or `@subtract` methods. e.g, we wanted to add "a" and "b" to get "c", so we called `@setArguments a b` and then called `@add`.
+
+But now things have changed, and we realise that if we consider adding and subtracting in the wider context of chained operations, then an add of "a" and "b" is really the same as adding "a" (onto our current sum, whatever that is) and then adding "b". Conversely, subtracting "a" from "b" is the same as adding "b" (onto our current sum, whatever that is) then subtracting "a".
+
+Therefore for Addition, in [Stage2](https://github.com/denford/TuteCumber/blob/Stage2/features/step_definitions/myStepDefinitions.coffee) where we used to have:
+``` CoffeeScript
+  @When /^I add (\d+) and (\d+)$/, (arg1, arg2, callback) ->
+    @setArguments arg1, arg2
+    @add()
+    ...
+```
+in [Stage3](https://github.com/denford/TuteCumber/blob/Stage3/features/step_definitions/myStepDefinitions.coffee) we now have:
+``` CoffeeScript
+  @When /^I add (-?\d+) and (-?\d+)$/, (arg1, arg2, callback) ->
+    @add(arg1)
+    @add(arg2)
+    ...
+```
+
+Therefore for Subtraction, in [Stage2](https://github.com/denford/TuteCumber/blob/Stage2/features/step_definitions/myStepDefinitions.coffee) where we used to have:
+``` CoffeeScript
+  @When /^I subtract (\d+) from (\d+)$/, (arg1, arg2, callback) ->
+    @setArguments arg2, arg1
+    @substract()
+    ...
+```
+in [Stage3](https://github.com/denford/TuteCumber/blob/Stage3/features/step_definitions/myStepDefinitions.coffee) we now have:
+``` CoffeeScript
+  @When /^I subtract (-?\d+) from (-?\d+)$/, (arg1, arg2, callback) ->
+    @add(arg2)
+    @substract(arg1)
+    ...
+```
+The `@add` and `@subtract` methods have also been refactored to take a parameter of the number being added or subtracted, whereas they used to take no parameters and just caused the operation to execute (based on a previous `@setArguments` call).
+
+So that is the main change to existing code, and we also add methods for `@When /^then add (-?\d+)$/` and ` @When /^then subtract (-?\d+)$/` which should be fairly obvious - just one argument now.
+
+#### World
+Our World object ([`features/support/world.coffee`](https://github.com/denford/TuteCumber/blob/Stage3/features/support/world.coffee)) now gets a little simpler actually. We get rid of the `@setArguments` method - we need it no more. Then we just add the new parameters for `@add` and `@subtract`.
+#### Calculator Model
+These changes keep flowing through and actually the Calculator class ([`models/calc.coffee`](https://github.com/denford/TuteCumber/blob/Stage3/models/calc.coffee)) becomes a little simpler (less code) but more sophisticated as well. Again we remove `setArguments`, this is no longer needed. We can then also remove the `_arg1` and `_arg2` class properties.
+
+We again refactor the `add` and `subtract` methods to take the number being added or subtracted as a parameter, and updating the `_currentSum`.
+#### Stage 3 Comments
+What is interesting in this final stage is that the final set of features, once again, cause us to re-think how the addition and subtraction work. We are left with a "working" calculator that is more sophisticated (real world), has less code, and supports more features. As we can see in the Stage3 [features file](https://github.com/denford/TuteCumber/blob/Stage3/features/multiple_operations.feature), we can start to specify all sorts of scenarios, including clearing the calculator mid-stream.
 
 ### Overall Comments
-One thing that makes it interesting (to me), and what I'll try to demonstrate here, is that we can see how the system being tested becomes more sophisticated as more features are added. I don't just mean that it becomes more complex, that more code is added, I mean that adding more feature specs forces (or at least strongly encourages) us to write a system that evolves  quickly approximate what we think the final system should look like.
+One thing that makes it interesting (to me), and what I've tried to demonstrate here, is that we can see how the system being tested becomes more sophisticated as more features are added. I don't just mean that it becomes more complex, that more code is added, I mean that adding more feature specs forces (or at least strongly encourages) us to write a system that evolves  quickly approximate what we think the final system should look like.
