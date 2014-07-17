@@ -34,6 +34,9 @@ BDD is about testing the *behaviour* of the system. Well, first agreeing and spe
 
 Basically you specify the behaviour of the system as some nice natual(ish) language specifications. These are called stories (or features in cucumber.js, and I'll call them features here). The features are composed of scenarios. Scenarios are composed of [potentially reusable] steps. And we write glue from these steps to drive our system code and test it.
 
+At least that's how I think about it. If you look at a [definition](http://en.wikipedia.org/wiki/Behavior-driven_development) you'll read something like this:
+> BDD is a second-generation, outside-in, pull-based, multiple-stakeholder, multiple-scale, high-automation, agile methodology. It describes a cycle of interactions with well-defined outputs, resulting in the delivery of working, tested software that matters.
+
 ## Tutorial
 The tutorial is split into three stages. Each builds on the former and adds more complexity (to the tests and to the system). However, at all stages we are working with the same directory structure:
 ```
@@ -56,7 +59,7 @@ Thanks to the alphabetical gods (i.e. blind luck) the order of files here is the
 ### Our System (Calculator)
 As much as I hate trivial examples, the "system" that this tute uses is a *simple* calculator - *stupidly simple* actually; think addition and subtraction only. But it does provide enough "meat" to see how BDD can be used to evolve your system, and how the addition of new features in Cucumber drives this process.
 
-### Stage 1 - Addition
+### First feature: Addition (aka Stage 1)
 Now, the first stage of the system sees us defining our first feature - addition. Calculators should let us add numbers. But first, let's update our code to the relevant release / commit:
 ``` bash
   $ git checkout Stage1
@@ -115,7 +118,7 @@ Basically, inside our World definition, ([`features/support/world.coffee`](https
 Finally, you can see the definition of our actual "system code", the definition of our Calculator class. This is defined in the [`models/calc.coffee`](https://github.com/denford/TuteCumber/blob/Stage1/models/calc.coffee) file. All we do is store the arguments when they are set, and use them when we want to add.
 #### Stage 1 Comments
 We can see that at this stage, the [`models/calc.coffee`](https://github.com/denford/TuteCumber/blob/Stage1/models/calc.coffee) class is *super* simple. Tragically simple really. In fact, what is interesting here is that although we "knew" from specification in natural language that the calculator should have a concept of being cleared, in order to pass our tests we don't really have to do anything in the `clearCalculator` method. We'll discuss this and come back to it more in Stage 2 and 3.
-### Stage 2 - Subtraction
+### Second feature: Subtraction (aka Stage 2)
 What goes up must come down, right? So the next stage sees us adding a feature specification for subtraction. As before, let's first update our code to this stage.
 ``` bash
   $ git checkout Stage2
@@ -134,19 +137,27 @@ At this stage we define our new subtraction feature in the [`features/subtractio
 #### Step Definitions
 The step definitions file, [`features/step_definitions/myStepDefinitions.coffee`](https://github.com/denford/TuteCumber/blob/Stage2/features/step_definitions/myStepDefinitions.coffee), now includes [only] one more step. This is because the `@Given` and the `@Then` steps can be re-used from our previous work, so all we need is one new `@When` handling the subtraction. 
 
-**However**, now that we are considering more than just addition, we actually need to revisit the way these steps work. [Previously](https://github.com/denford/TuteCumber/blob/Stage1/features/step_definitions/myStepDefinitions.coffee) the `@Then` step called the `@add` method on the World directly. But now that we want to re-use this step from our subtraction scenario, it makes no sense at all to call `@add` here. So what we need to do is requst some `@result` from the calculator in the `@Then` step, and we pull back the `@add` and `@subtract` method calls into their respective `@When` steps.
+**But**, this is where things start to get really interesting...
+
+Now that we are considering more than just addition, we actually need to revisit the way these steps work. [Previously](https://github.com/denford/TuteCumber/blob/Stage1/features/step_definitions/myStepDefinitions.coffee) the `@Then` step called the `@add` method on the World directly. But now that we want to re-use this step from our subtraction scenario, it makes no sense at all to call `@add` here. It was perfectly reasonable back in Stage 1 to do this, and if that's the only feature our system had, that would be all well and good. But it's not the only feature any more.
+
+So what we need to do is request some `@result` from the calculator in the `@Then` step (regardless of whether we were adding or subtracting), and we pull back the `@add` and `@subtract` method calls into their respective `@When` steps.
 
 This drives some interesting and appropriate change "downstream" throughout the rest of the system.
 
 #### World
 Our World - [`features/support/world.coffee`](https://github.com/denford/TuteCumber/blob/Stage2/features/support/world.coffee) - just has one simple `@subtract` method added.
 
-However the downstream refactoring we mentioned above flows through the World. Now we don't need / want to return a value from the `@add` and the new `@subtract` methods. So we don't. And we also want to define some `@result` method that requests the current result from the calculator (`@calc.result()`).
+However the downstream refactoring we mentioned above flows through the World as well. Now we don't need / want to return a value from the `@add` and the new `@subtract` methods. So we don't. And we also want to define some `@result` method that requests the current result from the calculator (`@calc.result()`).
+
+At this point we're just "specifying" that this is what would make sense, to interact with the calculator in this way. We don't care at this stage how the actual calculator model must change to support this. [Outside-in](#bdd-and-cucumberjs-overview).
 #### Calculator Model
-The calculator model - [`models/calc.coffee`](https://github.com/denford/TuteCumber/blob/Stage2/models/calc.coffee) - has now been refactored as well, as we'd expect. Ultimately we've made the calculator a little more realistic. Instead of the `@add` and `@subtract` methods directly returning the value, they more appropriately just perform the addition or subtraction operation, and store the result in the new `_currentSum` property. Then the current result at any point in time can be requested with the `@result` method.
+The calculator model - [`models/calc.coffee`](https://github.com/denford/TuteCumber/blob/Stage2/models/calc.coffee) - now has to be refactored as well, as we'd expect, to support our new specification.
+
+Ultimately we've made the calculator a little more realistic. Instead of the `@add` and `@subtract` methods directly returning the value, they more appropriately just perform the addition or subtraction operation, and store the result in the new `_currentSum` property. Then the current result at any point in time can be requested with the `@result` method.
 #### Stage 2 Comments
-What is interesting here is that by simply re-using one of our steps in the step definitions (the `@Then` step) between the addition and the subtraction features, this drives change all the way down the chain: from the step definitions to the World to our Calculator class. On the whole it results in us having a more realistic (real world) calculator.
-### Stage 3 - Multiple Operations
+What is interesting here is that by simply re-using one single step in the step definitions (the `@Then` step) in both the addition and the subtraction features, this drives change all the way down the chain: from the step definitions to the World to our Calculator class. On the whole it results in us having a more realistic (real world) calculator - one which obviously now supports two features instead of one.
+### Third feature: Chaining multiple operations (aka Stage 3)
 So the last stage sees us adding a feature specification for multiple chained operations - that is the ability to add more than two consecutive numbers, subtract numbers, all in the same single operation. As before, let's first update our code to this stage.
 ``` bash
   $ git checkout Stage3
@@ -170,7 +181,7 @@ TBC
 TBC
 #### Calculator Model
 TBC
-#### Stage 2 Comments
+#### Stage 3 Comments
 TBC
 
 
