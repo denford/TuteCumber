@@ -158,7 +158,7 @@ Ultimately we've made the calculator a little more realistic. Instead of the `@a
 #### Stage 2 Comments
 What is interesting here is that by simply re-using one single step in the step definitions (the `@Then` step) in both the addition and the subtraction features, this drives change all the way down the chain: from the step definitions to the World to our Calculator class. On the whole it results in us having a more realistic (real world) calculator - one which obviously now supports two features instead of one.
 ### Third feature: Chaining multiple operations (aka Stage 3)
-So the last stage sees us adding a feature specification for multiple chained operations - that is the ability to add more than two consecutive numbers, subtract numbers, all in the same single operation. As before, let's first update our code to this stage.
+So the last stage sees us adding a feature specification for multiple chained operations - that is the ability to add more than two consecutive numbers, subtract numbers, all in the same single operation (e.g. 3 + 6 + 25 - 15 + 77 - 154). As before, let's first update our code to this stage.
 ``` bash
   $ git checkout Stage3
   $ npm test
